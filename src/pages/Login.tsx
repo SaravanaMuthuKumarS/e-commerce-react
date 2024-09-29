@@ -20,7 +20,9 @@ export default function Login() {
                 <h3 className="text-lg text-center font-bold mb-4">Login to Proceed</h3>
                 <Input type="text" name="userName" content="Enter Your Name" click={setUserName} />
                 <Input type="password" name="password" click={setPassword} content="Enter Password" />
+                <div className="flex justify-center">
                 <Button title="Login" click={handleClick} />
+                </div>
             </div>
         </>
     )
