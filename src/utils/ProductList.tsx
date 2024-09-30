@@ -7,6 +7,7 @@ export const products: Product[] = [
         name: "Product 1",
         price: 19.99,
         description: "This is a description of Product 1",
+        count: 0,
         image: source
     },
     {
@@ -14,6 +15,7 @@ export const products: Product[] = [
         name: "Product 2",
         price: 29.99,
         description: "This is a description of Product 2",
+        count: 0,
         image: source
     },
     {
@@ -21,12 +23,14 @@ export const products: Product[] = [
         name: "Product 3",
         price: 39.99,
         description: "This is a description of Product 3",
+        count: 0,
         image: source
     }, {
         id: 4,
         name: "Product 4",
         price: 19.99,
         description: "This is a description of Product 1",
+        count: 0,
         image: source
     },
     {
@@ -34,6 +38,7 @@ export const products: Product[] = [
         name: "Product 5",
         price: 29.99,
         description: "This is a description of Product 2",
+        count: 0,
         image: source
     },
     {
@@ -41,12 +46,14 @@ export const products: Product[] = [
         name: "Product 6",
         price: 39.99,
         description: "This is a description of Product 3",
+        count: 0,
         image: source
     }, {
         id: 7,
         name: "Product 7",
         price: 19.99,
         description: "This is a description of Product 1",
+        count: 0,
         image: source
     },
     {
@@ -54,6 +61,7 @@ export const products: Product[] = [
         name: "Product 8",
         price: 29.99,
         description: "This is a description of Product 2",
+        count: 0,
         image: source
     },
     {
@@ -61,6 +69,7 @@ export const products: Product[] = [
         name: "Product 9",
         price: 39.99,
         description: "This is a description of Product 3",
+        count: 0,
         image: source
     },
     {
@@ -68,6 +77,7 @@ export const products: Product[] = [
         name: "Product 10",
         price: 39.99,
         description: "This is a description of Product 3",
+        count: 0,
         image: source
     }
 ];

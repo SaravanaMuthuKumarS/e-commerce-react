@@ -1,12 +1,18 @@
 import logo from '../asserts/logo.png'
 import profile from '../asserts/profile.png'
 import cart from '../asserts/cart.png'
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartContext } from './Home';
 
 export default function Dashboard() {
-  const cartCount = useContext(CartContext)
+  const cartCount = useContext(CartContext);
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate('cart')
+  }
+  
     return (
         <>
             <div className="flex w-full bg-gray-100 h-20 justify-between p-1">
@@ -25,7 +31,7 @@ export default function Dashboard() {
                         <img src={profile} />
                         <p className='flex flex-col justify-center'>Profile</p>
                     </div>
-                    <div className='font-mono flex border rounder-lg shadow p-2 m-2'>
+                    <div onClick={handleClick} className='font-mono flex border rounder-lg shadow p-2 m-2'>
                         <img src={cart} />
                         <p className='flex flex-col justify-center'>Cart : {cartCount.count}</p>
                     </div>
