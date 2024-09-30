@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { CartContext } from "./Home";
+import { CartContext } from "../context/ContextProvider.tsx";
 import { Cart as CartType } from "../utils/AppTypes";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import { products } from "../utils/ProductList";
 import CartCard from "../components/CartCard";
 
 export default function Cart() {
@@ -19,17 +18,7 @@ export default function Cart() {
     }, [cart.cartItems])
 
     function handleClick(cartItem: CartType) {
-        const productItem = products.find(item => item.id == cartItem.id);
-        productItem!.count -= 1;
-        const data = cart.cartItems.find(item => item.id == cartItem.id);
-        if (data!.quantity !== 1) {
-            data!.quantity -= 1;
-            cart.setCartItems([...cart.cartItems])
-        } else {
-            const newCartItems = cart.cartItems.filter((item) => item.id !== cartItem.id);
-            cart.setCartItems(newCartItems);
-            cart.setCount(cart.count - 1);
-        }
+        cart.removeCartItem(cartItem);
     }
 
     return (

@@ -13,3 +13,12 @@ export interface Cart {
   quantity: number;
   image: string;
 }
+
+export interface CartContextType {
+  count: number;
+  setCount: (count: number) => void;
+  cartItems: Cart[];
+  setCartItems: (cartItems: Cart[]) => void;
+  addCartItem: (product: Product) => void;
+  removeCartItem: (cartItem: Cart) => void;
+}
