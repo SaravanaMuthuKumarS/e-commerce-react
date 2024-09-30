@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import Dashboard from "./Dashboard";
-import Productpage from "./Productpage.tsx";
+import Productpage from "./ProductPage.tsx";
 import { Cart } from "../utils/AppTypes.tsx";
 
 interface CartContextType {

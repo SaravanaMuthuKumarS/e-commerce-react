@@ -1,83 +1,82 @@
 import { Product } from './AppTypes.tsx'
-import source from '../asserts/profile.png'
+import kurthi from '../asserts/kurthies.png'
+import silksaree from '../asserts/silk-saree.png'
+import tshirt from '../asserts/tshirt.png'
+import jeans from '../asserts/jeans.png'
+import dhothies from '../asserts/dhothies.png'
+import csaree from '../asserts/cotton-saree.png'
+import trouser from '../asserts/trouser.png'
+import cargo from '../asserts/cargo.png'
+import wtops from '../asserts/westerntops.png'
+import tracks from '../asserts/tracks.png'
 
 export const products: Product[] = [
     {
         id: 1,
-        name: "Product 1",
-        price: 19.99,
-        description: "This is a description of Product 1",
+        name: "Kurthi",
+        price: 399,
         count: 0,
-        image: source
+        image: kurthi
     },
     {
         id: 2,
-        name: "Product 2",
-        price: 29.99,
-        description: "This is a description of Product 2",
+        name: "Western Tops",
+        price: 499,
         count: 0,
-        image: source
+        image: wtops
     },
     {
         id: 3,
-        name: "Product 3",
-        price: 39.99,
-        description: "This is a description of Product 3",
+        name: "Silk Sarees",
+        price: 1999,
         count: 0,
-        image: source
+        image: silksaree
     }, {
         id: 4,
-        name: "Product 4",
-        price: 19.99,
-        description: "This is a description of Product 1",
+        name: "Cargos",
+        price: 799,
         count: 0,
-        image: source
+        image: cargo
     },
     {
         id: 5,
-        name: "Product 5",
-        price: 29.99,
-        description: "This is a description of Product 2",
+        name: "T-Shirt",
+        price: 299,
         count: 0,
-        image: source
+        image: tshirt
     },
     {
         id: 6,
-        name: "Product 6",
-        price: 39.99,
-        description: "This is a description of Product 3",
+        name: "Jeans",
+        price: 699,
         count: 0,
-        image: source
+        image: jeans
     }, {
         id: 7,
-        name: "Product 7",
-        price: 19.99,
-        description: "This is a description of Product 1",
+        name: "Dhothies",
+        price: 599,
         count: 0,
-        image: source
+        image: dhothies
     },
     {
         id: 8,
-        name: "Product 8",
-        price: 29.99,
-        description: "This is a description of Product 2",
+        name: "Trousers",
+        price: 199,
         count: 0,
-        image: source
+        image: trouser
     },
     {
         id: 9,
-        name: "Product 9",
-        price: 39.99,
-        description: "This is a description of Product 3",
+        name: "Cotton Sarees",
+        price: 299,
         count: 0,
-        image: source
+        image: csaree
     },
     {
         id: 10,
-        name: "Product 10",
-        price: 39.99,
-        description: "This is a description of Product 3",
+        name: "Tracks Pant",
+        price: 399,
         count: 0,
-        image: source
+        image: tracks
     }
 ];
