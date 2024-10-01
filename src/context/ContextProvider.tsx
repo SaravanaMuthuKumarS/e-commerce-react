@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
-import { Cart, CartContextType, Product } from "../utils/AppTypes";
-import { products } from "../utils/ProductList";
+import { CartContextType, Product } from "../utils/AppTypes";
 
 export const CartContext = createContext<CartContextType>({
     count: 0,
@@ -13,32 +12,28 @@ export const CartContext = createContext<CartContextType>({
 
 export default function ContextProvider(props: { children: React.ReactNode }) {
     const [count, setCount] = useState(0);
-    const [cartItems, setCartItems] = useState<Cart[]>([]);
+    const [cartItems, setCartItems] = useState<Product[]>([]);
 
     function addCartItem(product: Product) {
-        product.count += 1;
-        const cartItem = cartItems.find(item => item.id == product.id);
-        if (cartItem !== undefined) {
-            cartItem.quantity += 1;
-            setCartItems([...cartItems])
-        } else {
-            const newItem: Cart = { ...product, quantity: 1 }
+        if (product.count == 0) {
+            product.count += 1;
             setCount(count + 1)
-            setCartItems([...cartItems, newItem])
+            setCartItems([...cartItems, product])
+        } else {
+            const cartItem = cartItems.find(item => item.id == product.id)!;
+            cartItem.count += 1;
+            setCartItems([...cartItems])
         }
     }
 
-    function removeCartItem(cartItem: Cart) {
-        const productItem = products.find(item => item.id == cartItem.id);
-        productItem!.count -= 1;
-        const data = cartItems.find(item => item.id == cartItem.id);
-        if (data!.quantity !== 1) {
-            data!.quantity -= 1;
-            setCartItems([...cartItems])
-        } else {
+    function removeCartItem(cartItem: Product) {
+        cartItem.count -= 1;
+        if (cartItem.count == 0) {
             const newCartItems = cartItems.filter((item) => item.id !== cartItem.id);
             setCartItems(newCartItems);
             setCount(count - 1);
+        } else {
+            setCartItems([...cartItems])
         }
     }
 

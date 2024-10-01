@@ -11,7 +11,7 @@ export default function ProductCard({ product }: { product: Product }) {
     }
 
     function handleDecreament(product: Product) {
-        cart.removeCartItem(cart.cartItems.find((item) => item.id == product.id)!);
+        cart.removeCartItem(product);
     }
 
     return (

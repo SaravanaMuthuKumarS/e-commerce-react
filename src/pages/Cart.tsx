@@ -17,7 +17,7 @@ export default function Cart() {
         setGst(0);
         setTotalCost(0);
         cart.cartItems.map((item) => {
-            setCost((cost) => cost + item.price * item.quantity);
+            setCost((cost) => cost + item.price * item.count);
         });
         setGst(cost * 0.18);
         setTotalCost(cost + gst);
@@ -30,7 +30,7 @@ export default function Cart() {
                     <>
                         <div className="flex flex-col p-4 items-center">
                             <h2 className="text-lg font-bold">Your Cart is Empty</h2>
-                            <img className="w-72 h-72" src={empty}/>
+                            <img className="w-72 h-72" src={empty} />
                             <Button title="Close Cart" click={() => navigate(-1)} />
                         </div>
                     </> :
@@ -41,22 +41,25 @@ export default function Cart() {
                                 <CartCard key={cartItem.id} cartItem={cartItem} />
                             ))}
                         </ul>
-                        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-                            <h3 className="text-lg font-bold">Order Summary</h3>
+                        <div className="bg-gray-100 mx-2 p-4 mt-2 rounded-lg shadow-md text-lg">
+                            <h3 className="font-bold">Order Summary</h3>
                             <div className="flex justify-between mb-2">
-                                <p className="text-lg">Subtotal:</p>
-                                <p className="text-lg">₹ {cost.toFixed(2)}</p>
+                                <p>Subtotal:</p>
+                                <p>₹ {cost.toFixed(2)}</p>
                             </div>
                             <div className="flex justify-between mb-2">
-                                <p className="text-lg">GST (18%):</p>
-                                <p className="text-lg">₹ {gst.toFixed(2)}</p>
+                                <p>GST (18%):</p>
+                                <p>₹ {gst.toFixed(2)}</p>
                             </div>
-                            <div className="flex justify-between mb-2">
-                                <p className="text-lg font-bold">Total:</p>
-                                <p className="text-lg font-bold">₹ {totalCost.toFixed(2)}</p>
+                            <div className="flex justify-between mb-2 font-bold">
+                                <p>Total:</p>
+                                <p>₹ {totalCost.toFixed(2)}</p>
                             </div>
                         </div>
-                        <Button title="Close Cart" click={() => navigate(-1)} />
+                        <div className="flex justify-center gap-8">
+                            <Button title="Proceed To CheckOut" click={() => { }} />
+                            <Button title="Close Cart" click={() => navigate(-1)} />
+                        </div>
                     </>
                 }
             </div>

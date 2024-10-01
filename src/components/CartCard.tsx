@@ -1,17 +1,16 @@
 import { useContext } from "react";
-import { Cart } from "../utils/AppTypes";
+import { Product } from "../utils/AppTypes";
 import Button from "./Button";
 import { CartContext } from "../context/ContextProvider";
-import { products } from "../utils/ProductList";
 
-export default function CartCard({ cartItem }: { cartItem: Cart }) {
+export default function CartCard({ cartItem }: { cartItem: Product }) {
     const cart = useContext(CartContext);
 
-    function handleIncreament(cartItem: Cart) {
-        cart.addCartItem(products.find((item) => item.id == cartItem.id)!);
+    function handleIncreament(cartItem: Product) {
+        cart.addCartItem(cartItem);
     }
 
-    function handleDecreament(cartItem: Cart) {
+    function handleDecreament(cartItem: Product) {
         cart.removeCartItem(cartItem);
     }
 
@@ -27,7 +26,7 @@ export default function CartCard({ cartItem }: { cartItem: Cart }) {
                 </div>
                 <div className="flex items-center">
                     <Button title='-' click={() => handleDecreament(cartItem)} />
-                    <p className="text-lg font-bold mx-4">{cartItem.quantity}</p>
+                    <p className="text-lg font-bold mx-4">{cartItem.count}</p>
                     <Button title='+' click={() => handleIncreament(cartItem)} />
                 </div>
             </div>
