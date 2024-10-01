@@ -1,9 +1,9 @@
-import { products } from "../utils/ProductList"
-import ProductCard from "../components/ProductCard.tsx"
+import { products } from "../data/ProductList.tsx";
+import ProductCard from "../components/ProductCard.tsx";
 
 export default function ProductPage() {
     return (
-        <> <div className="text-center border-y-black border p-4">
+        <> <div className="text-center border-y-black border p-4 font-mono">
             <h2 className="text-lg text-black font-bold">Our Valuable Products</h2>
             <ul className="flex flex-wrap justify-center">
                 {products.map((product) => (
@@ -12,5 +12,5 @@ export default function ProductPage() {
             </ul>
             </div>
         </>
-    )
+    );
 }

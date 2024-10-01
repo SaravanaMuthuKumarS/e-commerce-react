@@ -1,4 +1,4 @@
-import { Product } from './AppTypes.tsx'
+import { Product } from '../type/AppTypes.tsx'
 import kurthi from '../asserts/kurthies.png'
 import silksaree from '../asserts/silk-saree.png'
 import tshirt from '../asserts/tshirt.png'

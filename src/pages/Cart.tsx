@@ -1,16 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import { CartContext } from "../context/ContextProvider.tsx";
-import { useNavigate } from "react-router-dom";
+import { CartContext } from "../context/CartContextProvider.tsx";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
+import Image from '../components/Image.tsx'
 import CartCard from "../components/CartCard";
 import empty from '../asserts/empty.png';
+import { CartContextType } from "../type/AppTypes.tsx";
 
 export default function Cart() {
-    const [cost, setCost] = useState(0);
-    const [gst, setGst] = useState(0);
-    const [totalCost, setTotalCost] = useState(0);
-    const cart = useContext(CartContext);
-    const navigate = useNavigate();
+    const [cost, setCost] = useState<number>(0);
+    const [gst, setGst] = useState<number>(0);
+    const [totalCost, setTotalCost] = useState<number>(0);
+    const cart = useContext<CartContextType>(CartContext);
+    const navigate: NavigateFunction = useNavigate();
 
     useEffect(() => {
         setCost(0);
@@ -21,16 +23,16 @@ export default function Cart() {
         });
         setGst(cost * 0.18);
         setTotalCost(cost + gst);
-    }, [cart.cartItems, cost])
+    }, [cart.cartItems, cost]);
 
     return (
         <>
-            <div className="text-center border-y-black border">
+            <div className="text-center border-y-black border font-mono">
                 {cart.count == 0 ?
                     <>
                         <div className="flex flex-col p-4 items-center">
                             <h2 className="text-lg font-bold">Your Cart is Empty</h2>
-                            <img className="w-72 h-72" src={empty} />
+                            <Image source={empty} style="w-72 h-72"/>
                             <Button title="Close Cart" click={() => navigate(-1)} />
                         </div>
                     </> :
@@ -64,5 +66,5 @@ export default function Cart() {
                 }
             </div>
         </>
-    )
+    );
 }

@@ -14,3 +14,10 @@ export interface CartContextType {
   addCartItem: (product: Product) => void;
   removeCartItem: (cartItem: Product) => void;
 }
+
+export interface AuthContextType {
+  isAuthenticated: boolean;
+  user: string;
+  setUser: (user: string) => void;
+  setIsAuthenticated: (isAuthenticated: boolean) => void;
+}
