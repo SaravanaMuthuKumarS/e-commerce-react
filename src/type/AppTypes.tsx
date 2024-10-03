@@ -6,6 +6,17 @@ export interface Product {
   image: string;
 }
 
+export interface UserDetail {
+  id: number;
+  name: string;
+  password: string;
+  contact: number;
+  email: string;
+  dob: string;
+  gender: string;
+  location: string;
+}
+
 export interface CartContextType {
   count: number;
   cost: number;
@@ -18,7 +29,7 @@ export interface CartContextType {
 
 export interface AuthContextType {
   isAuthenticated: boolean;
-  user: string;
-  setUser: (user: string) => void;
+  userId: number;
+  setUserId: (userId: number) => void;
   setIsAuthenticated: (isAuthenticated: boolean) => void;
 }

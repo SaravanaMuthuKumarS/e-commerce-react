@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { CartContextType, Product } from "../type/AppTypes.tsx";
 import Button from "./Button.tsx";
 import Image from "./Image.tsx";

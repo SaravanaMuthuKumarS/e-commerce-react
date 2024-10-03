@@ -1,7 +1,7 @@
 import '../scss/button.scss'
 
 interface ButtonProps {
-    click: () => void;
+    click?: () => void;
     title: string;
 }
 
