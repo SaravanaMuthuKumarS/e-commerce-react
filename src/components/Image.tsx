@@ -1,13 +1,14 @@
 interface ImageProps {
-    style: string;
-    source: string;
-    click?: () => void;
+  className?: string;
+  source: string;
+  click?: () => void;
+  varient?: 'cart' | 'product' | 'service' | ''
 }
 
-export default function Image(props: ImageProps) {
+export default function Image({ className = '', source, click, varient = '' }: ImageProps) {
   return (
     <>
-      <img src={props.source} className={props.style} onClick={props.click}/>
+      <img src={source} className={`rounded ${className} ${varient}`} onClick={click} />
     </>
   );
 }

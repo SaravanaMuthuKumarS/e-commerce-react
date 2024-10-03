@@ -20,7 +20,7 @@ export default function Dashboard() {
         <>
             <div className="flex w-full bg-gray-100 h-20 justify-between p-1 font-mono">
                 <div className='flex'>
-                    <Image source={logo} style='h-16 w-40' />
+                    <Image source={logo} className='h-16 w-40' />
                     <div className='flex flex-col justify-center ms-6 text-base'>
                         <p className="border rounded-lg shadow p-1">
                             Delivering to Chennai 600007
@@ -30,25 +30,25 @@ export default function Dashboard() {
                     </div>
                 </div>
                 <div className='flex'>
-                    <div onClick={() => navigate('/home')} className='flex border rounder-lg shadow p-2 m-2'>
-                        <Image source={home} style="" />
+                    <div onClick={() => navigate('/home')} className='flex border rounder-lg shadow p-2 m-2 cursor-pointer'>
+                        <Image source={home} />
                         <p className='flex flex-col justify-center'>Home</p>
                     </div>
-                    <div onClick={() => navigate('product')} className='flex border rounder-lg shadow my-2'>
-                        <Image source={product} style='w-20 h-14 mb-2' />
+                    <div onClick={() => navigate('product')} className='flex border rounder-lg shadow my-2 cursor-pointer'>
+                        <Image source={product} />
                         <p className='flex flex-col justify-center mx-2'>Products</p>
                     </div>
                 </div>
                 <div className='flex'>
-                    <div onClick={() => navigate('profile')} className='flex border rounder-lg shadow p-2 m-2'>
-                        <Image source={profile} style='' />
+                    <div onClick={() => navigate('profile')} className='flex border rounder-lg shadow p-2 m-2 cursor-pointer'>
+                        <Image source={profile} />
                         <p className='flex flex-col justify-center'>Profile</p>
                     </div>
-                    <div onClick={() => navigate('cart')} className='flex border rounder-lg shadow p-2 m-2'>
-                        <Image source={cart} style='' />
+                    <div onClick={() => navigate('cart')} className='flex border rounder-lg shadow p-2 m-2 cursor-pointer'>
+                        <Image source={cart} />
                         <p className='flex flex-col justify-center'>Cart : {cartCount.count}</p>
                     </div>
-                    <Image source={logout} style="" click={() => setIsAuthenticated(false)} />
+                    <Image source={logout} className="cursor-pointer" click={() => setIsAuthenticated(false)} />
                 </div>
             </div>
             <Outlet />

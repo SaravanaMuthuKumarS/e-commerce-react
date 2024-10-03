@@ -1,11 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 import { CartContextType, Product } from "../type/AppTypes";
 
 export const CartContext = createContext<CartContextType>({
     count: 0,
-    setCount: () => { },
+    cost: 0,
+    gst: 0,
+    totalCost: 0,
     cartItems: [],
-    setCartItems: () => { },
     addCartItem: () => { },
     removeCartItem: () => { },
 });
@@ -14,6 +15,18 @@ export default function CartContextProvider(props: { children: React.ReactNode }
     const [count, setCount] = useState<number>(0);
     const [cartItems, setCartItems] = useState<Product[]>([]);
 
+    const cost = useMemo(() => {
+        return cartItems.reduce((acc, item) => acc + item.price * item.count, 0);
+    }, [cartItems]);
+
+    const gst = useMemo(() => {
+        return cost * 0.18;
+    }, [cost]);
+
+    const totalCost = useMemo(() => {
+        return cost + gst;
+    }, [gst]);
+    
     function addCartItem(product: Product) {
         if (product.count == 0) {
             product.count += 1;
@@ -40,7 +53,7 @@ export default function CartContextProvider(props: { children: React.ReactNode }
 
     return (
         <CartContext.Provider 
-            value={{ count, setCount, cartItems, setCartItems, addCartItem, removeCartItem,}}>
+            value={{ count, cost, gst, totalCost, cartItems, addCartItem, removeCartItem,}}>
             {props.children}
         </CartContext.Provider>
     );

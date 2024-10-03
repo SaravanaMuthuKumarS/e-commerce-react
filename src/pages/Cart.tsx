@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { CartContext } from "../context/CartContextProvider.tsx";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
@@ -8,22 +8,8 @@ import empty from '../asserts/empty.png';
 import { CartContextType } from "../type/AppTypes.tsx";
 
 export default function Cart() {
-    const [cost, setCost] = useState<number>(0);
-    const [gst, setGst] = useState<number>(0);
-    const [totalCost, setTotalCost] = useState<number>(0);
     const cart = useContext<CartContextType>(CartContext);
     const navigate: NavigateFunction = useNavigate();
-
-    useEffect(() => {
-        setCost(0);
-        setGst(0);
-        setTotalCost(0);
-        cart.cartItems.map((item) => {
-            setCost((cost) => cost + item.price * item.count);
-        });
-        setGst(cost * 0.18);
-        setTotalCost(cost + gst);
-    }, [cart.cartItems, cost]);
 
     return (
         <>
@@ -32,7 +18,7 @@ export default function Cart() {
                     <>
                         <div className="flex flex-col p-4 items-center">
                             <h2 className="text-lg font-bold">Your Cart is Empty</h2>
-                            <Image source={empty} style="w-72 h-72"/>
+                            <Image source={empty} className="w-72 h-72"/>
                             <Button title="Close Cart" click={() => navigate(-1)} />
                         </div>
                     </> :
@@ -47,15 +33,15 @@ export default function Cart() {
                             <h3 className="font-bold">Order Summary</h3>
                             <div className="flex justify-between mb-2">
                                 <p>Subtotal:</p>
-                                <p>₹ {cost.toFixed(2)}</p>
+                                <p>₹ {cart.cost.toFixed(2)}</p>
                             </div>
                             <div className="flex justify-between mb-2">
                                 <p>GST (18%):</p>
-                                <p>₹ {gst.toFixed(2)}</p>
+                                <p>₹ {cart.gst.toFixed(2)}</p>
                             </div>
                             <div className="flex justify-between mb-2 font-bold">
                                 <p>Total:</p>
-                                <p>₹ {totalCost.toFixed(2)}</p>
+                                <p>₹ {cart.totalCost.toFixed(2)}</p>
                             </div>
                         </div>
                         <div className="flex justify-center gap-8">

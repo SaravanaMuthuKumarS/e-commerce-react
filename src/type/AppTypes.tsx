@@ -8,9 +8,10 @@ export interface Product {
 
 export interface CartContextType {
   count: number;
-  setCount: (count: number) => void;
+  cost: number;
+  gst: number;
+  totalCost: number;
   cartItems: Product[];
-  setCartItems: (cartItems: Product[]) => void;
   addCartItem: (product: Product) => void;
   removeCartItem: (cartItem: Product) => void;
 }
