@@ -9,6 +9,7 @@ import { UserData } from "../data/UserData";
 export default function Login() {
     const [userName, setUserName] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [retry, setRetry] = useState<boolean>(false);
     const navigate: NavigateFunction = useNavigate();
     const { setIsAuthenticated, setUserId } = useContext<AuthContextType>(AuthContext);
 
@@ -19,6 +20,8 @@ export default function Login() {
             setIsAuthenticated(true);
             setUserId(user.id);
             navigate('/home');
+        } else {
+            setRetry(true);
         }
     }
 
@@ -40,6 +43,7 @@ export default function Login() {
                             <p className="text-lg border rounded-lg px-2 shadow">forgot password ?</p>
                             <Button title="Login" />
                         </div>
+                        { retry ? <p className="text-red-500">Wrong Credentials, Retry !</p> : <></> }
                     </form>
                 </div>
             </div>
