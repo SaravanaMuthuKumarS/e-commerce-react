@@ -2,12 +2,9 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
 import { Navigate, Outlet } from "react-router-dom";
 import { AuthContextType } from "../type/AppTypes";
+import { LOGIN_ROUTE } from "../data/navigationConstants";
 
 export default function PrivateRoute() {
-    const { isAuthenticated } = useContext<AuthContextType>(AuthContext);
-    return (
-        <>
-        {!isAuthenticated ? <Navigate to = "/login" replace/> : <Outlet />}
-        </>
-    );
+  const { isAuthenticated } = useContext<AuthContextType>(AuthContext);
+  return isAuthenticated ? <Outlet /> : <Navigate to={LOGIN_ROUTE} replace />;
 }

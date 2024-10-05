@@ -1,12 +1,14 @@
-import '../scss/button.scss'
+import "../scss/button.scss";
 
 interface ButtonProps {
-    click?: () => void;
-    title: string;
+  click?: () => void;
+  title: string;
 }
 
-export default function Button(props: ButtonProps) {
-    return (
-        <button className="primary" onClick={props.click}>{props.title}</button>
-    )
+export default function Button({ title, click = () => {} }: ButtonProps) {
+  return (
+    <button className="primary" onClick={click}>
+      {title}
+    </button>
+  );
 }
