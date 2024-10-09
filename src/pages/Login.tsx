@@ -5,7 +5,7 @@ import { AuthContextType, UserDetail } from "../type/AppTypes";
 import { UserData } from "../data/userData";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { HOME_ROUTE } from "../data/navigationConstants";
+import { HOME_ROUTE } from "../constants/navigationConstants";
 
 export default function Login() {
   const [userName, setUserName] = useState<string>("");

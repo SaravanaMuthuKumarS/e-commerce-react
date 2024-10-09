@@ -1,17 +1,18 @@
 import Button from "./Button.tsx";
 import Image from "./Image.tsx";
 import "../scss/image.scss";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { CartContextType, Product } from "../type/AppTypes.tsx";
 import { CartContext } from "../context/CartContextProvider.tsx";
+import { CartReducer } from "../enums/reducerHelperEnum.ts";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { addCartItem, removeCartItem, productState, setProductState } =
+  const { productState, setProductState, dispatch } =
     useContext<CartContextType>(CartContext);
 
   function handleDecreament() {
-    removeCartItem(product);
-    if (product.count == 0)
+    dispatch({ type: CartReducer.RemoveCartItem, payload: product });
+    if (product.count == 1)
       setProductState((prevStates) => ({
         ...prevStates,
         [product.id]: false,
@@ -19,11 +20,11 @@ export default function ProductCard({ product }: { product: Product }) {
   }
 
   function handleIncreament() {
-    addCartItem(product);
+    dispatch({ type: CartReducer.AddCartItem, payload: product });
   }
 
   function handleAddToCart() {
-    addCartItem(product);
+    dispatch({ type: CartReducer.AddCartItem, payload: product });
     setProductState((prevStates) => ({ ...prevStates, [product.id]: true }));
   }
 

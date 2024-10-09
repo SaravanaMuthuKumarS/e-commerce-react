@@ -19,21 +19,27 @@ export interface UserDetail {
   isAdmin: boolean;
 }
 
-export interface CartContextType {
-  cartItems: Product[];
+export interface ItemActionType {
+  type: string;
+  payload: Product;
+  selectedCategory?: string;
+  searchValue?: string;
+}
+
+export interface State {
   productItems: Product[];
-  selectedCategory: string;
-  searchValue: string;
+  cartItems: Product[];
+  category: string;
+  search: string;
+}
+
+export interface CartContextType {
+  state: State;
   productState: { [id: number]: boolean };
+  dispatch: any;
   setProductState: (
     update: (prevStates: { [id: number]: boolean }) => { [id: number]: boolean }
   ) => void;
-  setSearchValue: (value: string) => void;
-  setSelectedCategory: (category: string) => void;
-  setProductItems: (productItem: Product[]) => void;
-  addCartItem: (product: Product) => void;
-  removeCartItem: (cartItem: Product) => void;
-  setCartItems: (cartItems: Product[]) => void;
 }
 
 export interface AuthContextType {

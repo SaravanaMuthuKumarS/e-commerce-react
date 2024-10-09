@@ -4,12 +4,13 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { CartContextType } from "../type/AppTypes";
 import { CartContext } from "../context/CartContextProvider";
-import "../data/navigationConstants";
-import { PREVIOUS_PAGE, PRODUCT_ROUTE } from "../data/navigationConstants";
+import "../constants/navigationConstants";
+import { PREVIOUS_PAGE, PRODUCT_ROUTE } from "../constants/navigationConstants";
+import { CartReducer } from "../enums/reducerHelperEnum";
 
 export default function AddProduct() {
   const navigate: NavigateFunction = useNavigate();
-  const { productItems, setProductItems } =
+  const { state, dispatch } =
     useContext<CartContextType>(CartContext);
   const [name, setName] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
@@ -17,16 +18,14 @@ export default function AddProduct() {
 
   const handleClick = (e: any) => {
     e.preventDefault();
-    setProductItems([
-      ...productItems,
-      {
-        id: productItems.length + 1,
-        name: name,
-        price: price,
-        image: image,
-        count: 0,
-      },
-    ]);
+    dispatch({type: CartReducer.AddProductItem, payload: {
+      id: state.productItems.length,
+      name: name,
+      price: price,
+      image: image,
+      count: 0,
+      category:"Fashion",
+    }});
     navigate(PRODUCT_ROUTE);
   };
 

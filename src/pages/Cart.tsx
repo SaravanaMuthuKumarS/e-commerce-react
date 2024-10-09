@@ -2,24 +2,24 @@ import { useContext, useMemo } from "react";
 import { CartContext } from "../context/CartContextProvider.tsx";
 import { CartContextType } from "../type/AppTypes.tsx";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import "../data/navigationConstants.ts";
+import "../constants/navigationConstants.ts";
 import Button from "../components/Button";
 import Image from "../components/Image.tsx";
 import CartCard from "../components/CartCard";
 import empty from "../asserts/empty.png";
-import { PREVIOUS_PAGE } from "../data/navigationConstants.ts";
+import { PREVIOUS_PAGE } from "../constants/navigationConstants.ts";
 
 export default function Cart() {
-  const { cartItems } = useContext<CartContextType>(CartContext);
+  const { state } = useContext<CartContextType>(CartContext);
   const navigate: NavigateFunction = useNavigate();
 
   const count = useMemo(() => {
-    return cartItems.length;
-  }, [cartItems]);
+    return state.cartItems.length;
+  }, [state.cartItems]);
 
   const cost = useMemo(() => {
-    return cartItems.reduce((acc, item) => acc + item.price * item.count, 0);
-  }, [cartItems]);
+    return state.cartItems.reduce((acc, item) => acc + item.price * item.count, 0);
+  }, [state.cartItems]);
 
   const gst = useMemo(() => {
     return cost * 0.18;
@@ -43,7 +43,7 @@ export default function Cart() {
         <>
           <h2 className="text-lg text-black text-center font-bold">My Cart</h2>
           <ul className="flex flex-wrap justify-center">
-            {cartItems.map((cartItem) => (
+            {state.cartItems.map((cartItem) => (
               <CartCard key={cartItem.id} cartItem={cartItem} />
             ))}
           </ul>

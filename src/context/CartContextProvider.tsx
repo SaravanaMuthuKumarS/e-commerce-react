@@ -1,96 +1,143 @@
-import { createContext, useCallback, useEffect, useState } from "react";
-import { CartContextType, Product } from "../type/AppTypes";
-import { products } from "../data/ProductList";
+import { createContext, useReducer, useState } from "react";
+import {
+  CartContextType,
+  ItemActionType,
+  State,
+} from "../type/AppTypes";
+import { products } from "../data/productList";
+import { CartReducer } from "../enums/reducerHelperEnum";
+
+const initialState: State = {
+  productItems: products,
+  cartItems: [],
+  category: "",
+  search: "",
+};
 
 export const CartContext = createContext<CartContextType>({
-  cartItems: [],
-  productItems: [],
-  selectedCategory: "",
-  searchValue: "",
+  state: initialState,
   productState: {},
+  dispatch: () => {},
   setProductState: () => {},
-  setSearchValue: () => {},
-  setProductItems: () => {},
-  setSelectedCategory: () => {},
-  addCartItem: () => {},
-  removeCartItem: () => {},
-  setCartItems: () => {},
 });
+
+function cartReducer(state: State, action: ItemActionType): State {
+  switch (action.type) {
+    case CartReducer.AddCartItem: {
+      const existingItem = state.cartItems.find(
+        (item) => item.id === action.payload.id
+      );
+      if (existingItem) {
+        return {
+          ...state,
+          cartItems: state.cartItems.map((item) => {
+            if (item.id === action.payload.id) {
+              item.count += 1;
+              return item;
+            }
+            return item;
+          }),
+        };
+      } else {
+        action.payload.count = 1;
+        return { ...state, cartItems: [...state.cartItems, action.payload] };
+      }
+    }
+
+    case CartReducer.RemoveCartItem: {
+      if (action.payload.count === 1) {
+        action.payload.count -= 1;
+        return {
+          ...state,
+          cartItems: state.cartItems.filter(
+            (item) => item.id !== action.payload.id
+          ),
+        };
+      } else if (action.payload.count >= 2) {
+        return {
+          ...state,
+          cartItems: state.cartItems.map((item) => {
+            if (item.id === action.payload.id) {
+              item.count -= 1;
+              return item;
+            }
+            return item;
+          }),
+        };
+      } else {
+        return state;
+      }
+    }
+
+    case CartReducer.SetCategory: {
+      if (action.selectedCategory === "") {
+        return {
+          ...state,
+          productItems: products,
+          category: action.selectedCategory,
+        };
+      } else {
+        return {
+          ...state,
+          productItems: products.filter(
+            (item) => item.category === action.selectedCategory
+          ),
+          category: action.selectedCategory!,
+        };
+      }
+    }
+
+    case CartReducer.SearchProduct: {
+      if (action.searchValue === "" && state.category === "") {
+        return {
+          ...state,
+          productItems: products,
+          search: action.searchValue,
+        };
+      } else if (action.searchValue === "" && state.category !== "") {
+        return {
+          ...state,
+          productItems: products.filter(
+            (item) => item.category === state.category
+          ),
+          search: action.searchValue,
+        };
+      } else {
+        return {
+          ...state,
+          productItems: state.productItems.filter((item) =>
+            item.name.toLowerCase().includes(action.searchValue!)
+          ),
+          search: action.searchValue!,
+        };
+      }
+    }
+
+    case CartReducer.AddProductItem: {
+      return {...state, productItems: [...state.productItems, action.payload]}
+    }
+
+    default: {
+      return state;
+    }
+  }
+}
 
 export default function CartContextProvider(props: {
   children: React.ReactNode;
 }) {
-  const [cartItems, setCartItems] = useState<Product[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [searchValue, setSearchValue] = useState<string>("");
+  const [state, dispatch] = useReducer(cartReducer, initialState);
   const [productState, setProductState] = useState<{ [id: number]: boolean }>(
     {}
-  );
-  const [productItems, setProductItems] = useState<Product[]>([]);
-
-  useEffect(() => {
-    if (selectedCategory === "") setProductItems(products);
-    else
-      setProductItems(
-        products.filter((item) => item.category === selectedCategory)
-      );
-  }, [selectedCategory]);
-
-  useEffect(() => {
-    if (searchValue === "") setProductItems(products);
-    else
-      setProductItems(
-        productItems.filter((item) =>
-          item.name.toLowerCase().includes(searchValue)
-        )
-      );
-  }, [searchValue]);
-
-  const addCartItem = useCallback(
-    (product: Product) => {
-      if (product.count === 0) {
-        product.count += 1;
-        setCartItems([...cartItems, product]);
-      } else {
-        const cartItem = cartItems.find((item) => item.id == product.id)!;
-        cartItem.count += 1;
-        setCartItems([...cartItems]);
-      }
-    },
-    [cartItems]
-  );
-
-  const removeCartItem = useCallback(
-    (cartItem: Product) => {
-      if (cartItem.count === 1) {
-        cartItem.count -= 1;
-        const newCartItems = cartItems.filter(
-          (item) => item.id !== cartItem.id
-        );
-        setCartItems(newCartItems);
-      } else if (cartItem.count >= 2) {
-        cartItem.count -= 1;
-        setCartItems([...cartItems]);
-      }
-    },
-    [cartItems]
   );
 
   return (
     <CartContext.Provider
       value={{
-        cartItems,
-        productItems,
-        selectedCategory,
-        searchValue,
+        state,
         productState,
+        dispatch,
         setProductState,
-        setSearchValue,
-        setSelectedCategory,
-        setProductItems,
-        addCartItem,
-        removeCartItem,
-        setCartItems,
       }}
     >
       {props.children}

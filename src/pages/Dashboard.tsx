@@ -16,24 +16,23 @@ import {
   HOME_ROUTE,
   PRODUCT_ROUTE,
   PROFILE_ROUTE,
-} from "../data/navigationConstants.ts";
+} from "../constants/navigationConstants.ts";
 import DashboardNav from "../components/DashboardNav.tsx";
-import { Icons, IconType } from "../data/Icons.tsx";
+import { Icons, IconType } from "../components/Icons.tsx";
 
 export default function Dashboard() {
-  const { cartItems, setCartItems } = useContext<CartContextType>(CartContext);
+  const { state } = useContext<CartContextType>(CartContext);
   const { setIsAuthenticated, isAdmin, setIsAdmin } =
     useContext<AuthContextType>(AuthContext);
   const navigate: NavigateFunction = useNavigate();
 
   const count = useMemo(() => {
-    return cartItems.length;
-  }, [cartItems]);
+    return state.cartItems.length;
+  }, [state.cartItems]);
 
   function handleLogout() {
     setIsAuthenticated(false);
     setIsAdmin(false);
-    setCartItems([]);
   }
 
   return (

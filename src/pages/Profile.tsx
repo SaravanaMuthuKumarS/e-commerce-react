@@ -6,7 +6,7 @@ import Image from "../components/Image";
 import { AuthContext } from "../context/AuthContextProvider";
 import { AuthContextType, UserDetail } from "../type/AppTypes";
 import { UserData } from "../data/userData";
-import { PREVIOUS_PAGE } from "../data/navigationConstants";
+import { PREVIOUS_PAGE } from "../constants/navigationConstants";
 
 export default function Profile() {
   const { userId } = useContext<AuthContextType>(AuthContext);

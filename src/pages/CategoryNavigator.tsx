@@ -1,16 +1,16 @@
-import { Icons, IconType } from "../data/Icons";
+import { Icons, IconType } from "../components/Icons";
 import { useContext } from "react";
-import { categories } from "../data/CategoryList";
+import { categories } from "../data/categoryList";
 import { CartContext } from "../context/CartContextProvider";
 import { CartContextType } from "../type/AppTypes";
+import { CartReducer } from "../enums/reducerHelperEnum";
 
 export default function CategoryNavigator() {
-  const { selectedCategory, setSelectedCategory, setSearchValue, searchValue } =
-    useContext<CartContextType>(CartContext);
+  const { state, dispatch } = useContext<CartContextType>(CartContext);
 
   function handleAllProducts() {
-    setSelectedCategory("");
-    setSearchValue("");
+    dispatch({ type: CartReducer.SearchProduct, searchValue: "" });
+    dispatch({ type: CartReducer.SetCategory, selectedCategory: "" });
   }
 
   return (
@@ -24,8 +24,13 @@ export default function CategoryNavigator() {
       </div>
       <select
         className="m-2 p-2 text-sm text-black border border-gray-300 rounded-md shadow-sm bg-gray-100"
-        value={selectedCategory}
-        onChange={(e: any) => setSelectedCategory(e.target.value)}
+        value={state.category}
+        onChange={(e: any) =>
+          dispatch({
+            type: CartReducer.SetCategory,
+            selectedCategory: e.target.value,
+          })
+        }
       >
         <option value="">Select Category</option>
         {categories.map((category) => (
@@ -36,8 +41,13 @@ export default function CategoryNavigator() {
       </select>
       <input
         type="search"
-        value={searchValue}
-        onChange={(e: any) => setSearchValue(e.target.value)}
+        value={state.search}
+        onChange={(e: any) =>
+          dispatch({
+            type: CartReducer.SearchProduct,
+            searchValue: e.target.value,
+          })
+        }
         placeholder="Search..."
         className="m-2 p-2 text-sm text-black border border-gray-300 rounded-md shadow-sm bg-gray-100"
       />

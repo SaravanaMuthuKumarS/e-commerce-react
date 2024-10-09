@@ -18,7 +18,7 @@ import {
   PRODUCT_ROUTE,
   PROFILE_ROUTE,
   ROOT_ROUTE,
-} from "../data/navigationConstants.ts";
+} from "../constants/navigationConstants.ts";
 
 export default function AppRoutes() {
   return (
