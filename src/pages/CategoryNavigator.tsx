@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { categories } from "../data/categoryList";
 import { CartContext } from "../context/CartContextProvider";
 import { CartContextType } from "../type/AppTypes";
-import { CartReducer } from "../enums/reducerHelperEnum";
+import { CartReducer } from "../enums/appEnums";
 
 export default function CategoryNavigator() {
   const { state, dispatch } = useContext<CartContextType>(CartContext);

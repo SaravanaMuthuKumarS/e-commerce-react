@@ -6,7 +6,7 @@ import { CartContextType } from "../type/AppTypes";
 import { CartContext } from "../context/CartContextProvider";
 import "../constants/navigationConstants";
 import { PREVIOUS_PAGE, PRODUCT_ROUTE } from "../constants/navigationConstants";
-import { CartReducer } from "../enums/reducerHelperEnum";
+import { CartReducer } from "../enums/appEnums";
 
 export default function AddProduct() {
   const navigate: NavigateFunction = useNavigate();

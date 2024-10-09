@@ -4,11 +4,20 @@ import "../scss/image.scss";
 import { useContext } from "react";
 import { CartContextType, Product } from "../type/AppTypes";
 import { CartContext } from "../context/CartContextProvider";
-import { CartReducer } from "../enums/reducerHelperEnum";
+import { CartReducer } from "../enums/appEnums";
 
 export default function CartCard({ cartItem }: { cartItem: Product }) {
   const { dispatch } =
     useContext<CartContextType>(CartContext);
+
+    function handleDecreament() {
+      dispatch({ type: CartReducer.RemoveCartItem, payload: cartItem });
+      dispatch({type: CartReducer.ProductState, payload: cartItem});
+    }
+
+    function handleIncreament() {
+      dispatch({ type: CartReducer.AddCartItem, payload: cartItem });
+    }
 
   return (
     <li className="p-2">
@@ -21,9 +30,9 @@ export default function CartCard({ cartItem }: { cartItem: Product }) {
           <p className="text-lg font-normal">Price: {cartItem.price}</p>
         </div>
         <div className="flex items-center">
-          <Button title="-" click={() => dispatch({ type: CartReducer.RemoveCartItem, payload: cartItem })} />
+          <Button title="-" click={handleDecreament} />
           <p className="text-lg font-bold mx-4">{cartItem.count}</p>
-          <Button title="+" click={() => dispatch({ type: CartReducer.AddCartItem, payload: cartItem })} />
+          <Button title="+" click={handleIncreament} />
         </div>
       </div>
     </li>

@@ -1,7 +1,4 @@
-export enum IconType {
-  LogoutIcon = "LogoutIcon",
-  AllIcon = "AllIcon",
-}
+import { IconType } from "../enums/appEnums";
 
 const AllIcon = () => {
   return (
@@ -26,41 +23,32 @@ const AllIcon = () => {
   );
 };
 
-const LogoutIcon = ({ style, click }: { style: string; click: () => void }) => {
+const LogoutIcon = () => {
   return (
-    <div className={style} onClick={click}>
-      <svg
-        height="30px"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        className="mx-2 my-5"
-      >
-        <path
-          stroke="#000000"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M20 12h-9.5m7.5 3l3-3-3-3m-5-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h5a2 2 0 002-2v-1"
-        />
-      </svg>
-    </div>
+    <svg
+      height="30px"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      className="mx-2 my-5"
+    >
+      <path
+        stroke="#000000"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M20 12h-9.5m7.5 3l3-3-3-3m-5-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h5a2 2 0 002-2v-1"
+      />
+    </svg>
   );
 };
 
-export const Icons = ({
-  type,
-  click=() => {},
-  style='',
-}: {
-  type: IconType;
-  click?: () => void;
-  style?: string;
-}) => {
+export const Icons = ({ type }: { type: IconType }) => {
   switch (type) {
     case IconType.LogoutIcon:
-      return <LogoutIcon style={style} click={click} />;
+      return <LogoutIcon />;
     case IconType.AllIcon:
       return <AllIcon />;
   }
 };
+export { IconType };

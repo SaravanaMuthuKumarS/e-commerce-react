@@ -18,7 +18,8 @@ import {
   PROFILE_ROUTE,
 } from "../constants/navigationConstants.ts";
 import DashboardNav from "../components/DashboardNav.tsx";
-import { Icons, IconType } from "../components/Icons.tsx";
+import { Icons } from "../components/Icons.tsx";
+import { IconType } from "../enums/appEnums.ts";
 
 export default function Dashboard() {
   const { state } = useContext<CartContextType>(CartContext);
@@ -71,11 +72,10 @@ export default function Dashboard() {
             click={() => navigate(CART_ROUTE)}
             source={cart}
           />
+          <div className="cursor-pointer" onClick={handleLogout}>
           <Icons
             type={IconType.LogoutIcon}
-            style="cursor-pointer"
-            click={handleLogout}
-          />
+          /></div>
         </div>
       </div>
       <Outlet />

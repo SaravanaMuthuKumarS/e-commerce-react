@@ -22,8 +22,8 @@ export interface UserDetail {
 export interface ItemActionType {
   type: string;
   payload: Product;
-  selectedCategory?: string;
-  searchValue?: string;
+  selectedCategory: string;
+  searchValue: string;
 }
 
 export interface State {
@@ -31,15 +31,12 @@ export interface State {
   cartItems: Product[];
   category: string;
   search: string;
+  productState: { [id: number]: boolean };
 }
 
 export interface CartContextType {
   state: State;
-  productState: { [id: number]: boolean };
   dispatch: any;
-  setProductState: (
-    update: (prevStates: { [id: number]: boolean }) => { [id: number]: boolean }
-  ) => void;
 }
 
 export interface AuthContextType {

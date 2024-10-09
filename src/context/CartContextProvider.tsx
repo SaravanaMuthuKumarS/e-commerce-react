@@ -1,46 +1,37 @@
-import { createContext, useReducer, useState } from "react";
-import {
-  CartContextType,
-  ItemActionType,
-  State,
-} from "../type/AppTypes";
+import { createContext, useReducer } from "react";
+import { CartContextType, ItemActionType, State } from "../type/AppTypes";
 import { products } from "../data/productList";
-import { CartReducer } from "../enums/reducerHelperEnum";
+import { CartReducer } from "../enums/appEnums";
 
 const initialState: State = {
   productItems: products,
   cartItems: [],
   category: "",
   search: "",
+  productState: {},
 };
 
 export const CartContext = createContext<CartContextType>({
   state: initialState,
-  productState: {},
   dispatch: () => {},
-  setProductState: () => {},
 });
 
 function cartReducer(state: State, action: ItemActionType): State {
   switch (action.type) {
     case CartReducer.AddCartItem: {
-      const existingItem = state.cartItems.find(
-        (item) => item.id === action.payload.id
-      );
-      if (existingItem) {
+      if (action.payload.count === 0) {
+        action.payload.count = 1;
+        return { ...state, cartItems: [...state.cartItems, action.payload] };
+      } else {
         return {
           ...state,
           cartItems: state.cartItems.map((item) => {
             if (item.id === action.payload.id) {
               item.count += 1;
-              return item;
             }
             return item;
           }),
         };
-      } else {
-        action.payload.count = 1;
-        return { ...state, cartItems: [...state.cartItems, action.payload] };
       }
     }
 
@@ -53,19 +44,16 @@ function cartReducer(state: State, action: ItemActionType): State {
             (item) => item.id !== action.payload.id
           ),
         };
-      } else if (action.payload.count >= 2) {
+      } else {
         return {
           ...state,
           cartItems: state.cartItems.map((item) => {
             if (item.id === action.payload.id) {
               item.count -= 1;
-              return item;
             }
             return item;
           }),
         };
-      } else {
-        return state;
       }
     }
 
@@ -82,7 +70,7 @@ function cartReducer(state: State, action: ItemActionType): State {
           productItems: products.filter(
             (item) => item.category === action.selectedCategory
           ),
-          category: action.selectedCategory!,
+          category: action.selectedCategory,
         };
       }
     }
@@ -106,15 +94,26 @@ function cartReducer(state: State, action: ItemActionType): State {
         return {
           ...state,
           productItems: state.productItems.filter((item) =>
-            item.name.toLowerCase().includes(action.searchValue!)
+            item.name.toLowerCase().includes(action.searchValue)
           ),
-          search: action.searchValue!,
+          search: action.searchValue,
         };
       }
     }
 
     case CartReducer.AddProductItem: {
-      return {...state, productItems: [...state.productItems, action.payload]}
+      return {
+        ...state,
+        productItems: [...state.productItems, action.payload],
+      };
+    }
+
+    case CartReducer.ProductState: {
+      if (action.payload.count === 0) {
+        return {...state, productState: {...state.productState, [action.payload.id]: false }}
+      } else {
+        return {...state, productState: {...state.productState, [action.payload.id]: true }}
+      }
     }
 
     default: {
@@ -127,17 +126,12 @@ export default function CartContextProvider(props: {
   children: React.ReactNode;
 }) {
   const [state, dispatch] = useReducer(cartReducer, initialState);
-  const [productState, setProductState] = useState<{ [id: number]: boolean }>(
-    {}
-  );
 
   return (
     <CartContext.Provider
       value={{
         state,
-        productState,
         dispatch,
-        setProductState,
       }}
     >
       {props.children}
